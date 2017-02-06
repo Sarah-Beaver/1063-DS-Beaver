@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+
+int fib(int x,int test) {
+    if (x <= 0)
+        return 0;
+
+    if (x == 1)
+        return 1;
+  // int temp=fib(x-1);
+   //int temps=fib(x-2);
+   int total=0;
+   //cout<<" temp "<<temp;
+   //cout<<" temps "<<temps;
+   //cout<<" total "<<total<<endl;   
+   total= fib(x-1,test);
+   if(test==0)
+   cout<<total<< " ";
+   test=1;
+   total+=fib(x-2,test);
+    
+   return total;
+}
+
+int main() {
+    cout<<fib(7,0);
+}
