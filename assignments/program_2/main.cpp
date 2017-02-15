@@ -33,15 +33,54 @@ private:
     ofstream ofile;
     string ifile_name;
     string ofile_name;
-
+/**
+* @FunctionName: readFile
+* @Description: 
+*     gets the values from the picture
+* @Params:
+*    none
+* @Returns:
+*    void
+*/
     void readFile(){
+    for(int i=0;i<height;i++){
+        for(int j=0;j<width;j++){
+            infile>>image[i][j].r>>image[i][j].g>>image[i][j].b;            
+        }
+     }
     }
-
+/**
+* @FunctionName: writeFile
+* @Description: 
+*     prints out the rbgs from the pointer arrys
+* @Params:
+*    none
+* @Returns:
+*    void
+*/
     void writeFile(){
+       //Write out our color data to a new file
+    ofile<<width<<" "<<height<<endl;
+    for(int i=0;i<height;i++){
+        for(int j=0;j<width;j++){
+            ofile<<image[i][j].r<<" "<<image[i][j].g<<" "<<image[i][j].b<<" ";
+        }
+        ofile<<endl;
+    }
     }
 
 public:
     ImageManip(){
+      infile.open("test.txt");
+      ofile.open("output.txt");
+      infile>>height>>width;
+      image = new rgb*[height];
+    for(int i=0;i<height;i++)
+    {
+        image[i] = new rgb[width]; 
+    }
+    
+    readFile();
     }
 /**
 * @FunctionName: flipVert
@@ -54,7 +93,7 @@ public:
 * @Returns:
 *    void
 */
-    void flipVert(string ifile_name,string ofile_name){
+    void flipVert(){
 
         int temp;
     for(int i=0;i<height/2;i++)
@@ -71,7 +110,8 @@ public:
         image[i][j].b=image[height-1-i][j].b;
         image[height-1-i][j].b=temp;
       }
-    }// your code
+    }
+    writeFile();
     }
 /**
 * @FunctionName: flipHorz
@@ -84,7 +124,7 @@ public:
 * @Returns:
 *    void
 */
-    void flipHorz(string ifile_name,string ofile_name){
+    void flipHorz(){
          rgb temp;
     for(int i=0;i<height;i++)
     {
@@ -100,7 +140,8 @@ public:
         image[i][width-j-1].g=temp.g;
         image[i][width-j-1].b=temp.b;
       }
-    }// your code
+    }
+    writeFile();
     }
 /**
 * @FunctionName: grayScale
@@ -113,7 +154,7 @@ public:
 * @Returns:
 *    void
 */
-    void grayScale(string ifile_name,string ofile_name){
+    void grayScale(){
         int temp;
     for(int i=0;i<height;i++)
     {
@@ -124,74 +165,18 @@ public:
         image[i][j].g=temp;
         image[i][j].b=temp;
       }
-    } // your code
+    } 
+    writeFile();
     }
-    ~ImagerManip(){
+    ~ImageManip(){
+      delete image;
     }
-}
+};
 
 int main(){
-    ifstream ifile;          //Input / output files
-    ofstream ofile;
-    ifile.open("test.txt");
-    ofile.open("output.txt");   
-    
-    int width;               //width of image
-    int height;              //height of image
-    
-    rgb **imgArray;         //Pointer var for our 2D array          
-    
-    ifile>>width>>height;   //Read in width and height from top of input file
-                            //We need this so we can make the array the right 
-                            //size.
-    
-    imgArray = new rgb*[height];    //This array points to every row
-    
-    for(int i=0;i<height;i++){
-        imgArray[i] = new rgb[width]; //Now allocate each row of rgb's
-    }
-    
-    //Read the color data in from our txt file
-    for(int i=0;i<height;i++){
-        for(int j=0;j<width;j++){
-            ifile>>imgArray[i][j].r>>imgArray[i][j].g>>imgArray[i][j].b;            
-        }
-    }
-    grayScale(imgArray,width,height);
-    //We could make any changes we want to the color image here
-    
-    //Write out our color data to a new file
-    ofile<<width<<" "<<height<<endl;
-    for(int i=0;i<height;i++){
-        for(int j=0;j<width;j++){
-            ofile<<imgArray[i][j].r<<" "<<imgArray[i][j].g<<" "<<imgArray[i][j].b<<" ";
-        }
-        ofile<<endl;
-    }
-    
-    flipVert(imgArray,width,height);
-    //We could make any changes we want to the color image here
-    
-    //Write out our color data to a new file
-    ofile<<width<<" "<<height<<endl;
-    for(int i=0;i<height;i++){
-        for(int j=0;j<width;j++){
-            ofile<<imgArray[i][j].r<<" "<<imgArray[i][j].g<<" "<<imgArray[i][j].b<<" ";
-        }
-        ofile<<endl;
-    }
-    flipHorz(imgArray,width,height);
-    //We could make any changes we want to the color image here
-    
-    //Write out our color data to a new file
-    ofile<<width<<" "<<height<<endl;
-    for(int i=0;i<height;i++){
-        for(int j=0;j<width;j++){
-            ofile<<imgArray[i][j].r<<" "<<imgArray[i][j].g<<" "<<imgArray[i][j].b<<" ";
-        }
-        ofile<<endl;
-    }
-    
-    
+    ImageManip picture;
+    picture.grayScale();
+    picture.flipVert();
+    picture.flipHorz();
   return 0;
 }
