@@ -1,4 +1,12 @@
-//Sarah Beaver
+/**
+* @ProgramName:cicular queue
+* @Author: Sarah Beaver
+* @Description: 
+*     fix the print statement
+* @Course: 1063 Data Structures
+* @Semester: Spring 2017
+* @Date: 03 02 2017
+*/
 #include <iostream>
 #include <random>
 
