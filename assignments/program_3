@@ -1,0 +1,105 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class ArrQueue{
+private:
+  int ArraySize;
+  char *Q;
+  int Front;
+  int Rear;
+  int NumItems;
+public:
+  ArrQueue(int size){
+    ArraySize = size;
+    Q = new char[ArraySize];
+    Front = Rear = NumItems = 0;
+  }
+  
+  bool Push(int value){
+    Q[Rear++] = value;
+    NumItems++;
+  }
+  
+  int Pop(){
+    int Temp = Q[Front++];
+    NumItems--;
+    return Temp;
+  }
+  
+  bool Empty(){
+    return (NumItems == 0);
+  }
+  
+  bool Full(){
+    return (NumItems == ArraySize);
+  }
+  
+  void Print(){
+    for(int i=0;i<NumItems;i++){
+      cout<<Q[i]<<" ";
+    }
+    cout<<endl;
+    
+    int Index = Front;
+    while(Index != Rear){
+      
+      Index = ((Index + 1) % ArraySize);
+    }
+  }
+  };
+ class Stack{
+  private:
+  char *S;
+  int top;
+  int size;
+  public:
+  Stack(int s){
+    size = s;
+    top = -1;
+    S = new char[size];
+  }
+  void push(int x){
+    if(!full()){
+      S[++top] = x;
+    }else{
+      cout<<"Stack Overflow!"<<endl;
+    }
+  }
+  int pop(){
+    if(!empty())
+      return S[top--];
+    else
+      return -1;
+  }
+  void printStack(){
+    for(int i=top;i>=0;i--){
+      cout<<S[i]<<" ";
+    }
+    cout<<endl;
+  }
+  char peek(){
+    return S[top];
+  }
+  bool empty(){
+    return top == -1;
+  }
+  bool full(){
+    return top == size-1;
+  }
+};
+int main()
+{
+  Stack change=Stack(30);
+  ArrQueue postfix=ArrQueue(30);
+  Stack calc=Stack(10);
+  string problem;
+  int num1=0;
+  int num2=0;
+  cout<<"Enter the problem. Can only have single digit numbers."<<endl;
+  cin>>problem;
+  problem=problem+")";
+  cout<<problem;
+  
+  return 0;
+}
