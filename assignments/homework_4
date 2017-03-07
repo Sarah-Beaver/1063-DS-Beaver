@@ -122,9 +122,7 @@ int BinarySearch(int* data,int key,int size){
   int middle = (left + right) / 2;
   
   bool found = false;
-  bool inArray=exists(data,size,key);
-  if(inArray)
-  {
+  
     while(!found){
       if(data[middle] == key){
         return middle;
@@ -140,7 +138,7 @@ int BinarySearch(int* data,int key,int size){
         middle = (left + right) / 2;
       }
     
-    }
+    
   } 
 
   
