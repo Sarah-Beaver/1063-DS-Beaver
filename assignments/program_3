@@ -271,6 +271,8 @@ int main(){
   srand(546365);
   string infix;
   char temp;
+  int num1=0;
+  int num2=0;
   int priority=0;
   int check=0;
   cout<<"Expression [e.g. (3+4)*9-(3+4)*8 ]:";
