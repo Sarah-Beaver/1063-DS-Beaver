@@ -1,0 +1,101 @@
+#include <iostream>
+using namespace std;
+struct Node{
+  int Data;
+  Node *Next;
+};
+class Stack{
+  private:
+    Node *Head;
+  public:
+    Stack()
+    {
+      Head=NULL;
+    }
+    void FrontSert(int x){
+      // Memorize the three lines of new node allocation
+      Node *Temp = new Node;
+      Temp->Data = x;
+      Temp->Next = NULL;
+      
+      // If items in list already, point our new nodes next
+      // to what head points to.
+      if(Head){
+        Temp->Next = Head;
+      }
+
+      // Update head to point to the new node.
+      Head = Temp;
+    }
+    int Pop()
+    {
+      if(!Head)
+      {
+        cout<<"Empty"<<endl;
+        return -1;
+      }
+      Node *Temp=new Node;
+      Temp->Next=NULL;
+      Temp->Data=Head->Data;
+      Node *curr=new Node;
+      curr=Head;
+      Head=Head->Next;
+      delete curr;
+      return Temp->Data;
+    }
+    void PrintList(){
+      if(!Head){
+        cout<<"Empty"<<endl;
+        return;
+      }else{
+        // Memorize this!! This is a basic list traversal that will be a part 
+        // of many a test question
+        Node *Temp = Head;
+        while(Temp != NULL){
+          // Here we print, but we could do other things to each list node as well (like alter the contents).
+          cout<<Temp->Data<<"->";
+          Temp = Temp->Next;
+        }
+      }
+      cout<<endl;
+    }
+    void Reverse()
+    {
+      if(!Head)
+        return;
+      else
+      {
+        Node *curr=new Node;
+        curr=NULL;
+        while(Head!=NULL)
+        {
+          Node *Temp=new Node;
+          Temp->Data=Head->Data;
+          Temp->Next=curr;
+          curr=Temp;
+          Head=Head->Next;
+        }
+        Head=curr;
+      }
+      
+    }
+    
+};
+int main()
+{
+  Stack test;
+  test.FrontSert(5);
+  
+  test.FrontSert(6);
+  
+  test.FrontSert(7);
+  
+  test.FrontSert(8);
+  int x=test.Pop();
+  cout<<x<<endl;
+  test.PrintList();
+  test.Reverse();
+  test.PrintList();
+
+  return 0;
+}
