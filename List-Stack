@@ -76,6 +76,25 @@ class Stack{
           Head=Head->Next;
         }
         Head=curr;
+      
+/*Node *curr=new Node;
+        curr=NULL;
+        while(Head!=NULL)
+        {
+          Node* Temp;
+          Temp->Data=Head->Data;
+          Temp->Next=curr;
+          curr=Temp;
+          
+          Temp=Head;
+          Head=Head->Next;
+          cout<<"curr"<<curr->Data<<endl;
+          delete Temp;
+
+          cout<<"curr"<<curr->Data<<endl;   
+          }
+        Head=curr;
+      */
       }
       
     }
