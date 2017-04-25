@@ -76,15 +76,52 @@ public:
     
     int CountNeighbors(int row, int col){
         int neighbors = 0;
+        int r,c=0;
         if (Board[row][col] == 1){
             neighbors--;
         }
         for (int i = row - 1; i <= row + 1; i++){
             for (int j = col - 1; j <= col + 1; j++){
-                if (OnBoard(i, j)){
-                    neighbors += Board[i][j];
-                }
+              r=i;
+              c=j;
+              if(!OnBoard(i,j))
+              {
+                //cout<<"Not on Board"<<endl;
+              if(i<0)
+              {
+               // cout<<"i<0"<<endl;
+              //  cout<<r<<" "<<c<<endl;
+                r=Rows+i;
+                //cout<<r<<" "<<c<<endl;
+              }
+              else if(i>=Rows)
+              {
+                
+               // cout<<"i>=Rows"<<endl;
+                //cout<<r<<" "<<c<<endl;
+                r=i%Rows;
+                //cout<<r<<" "<<c<<endl;
+              }
+              if(j<0)
+              {
+                
+             //   cout<<"j<0"<<endl;
+               // cout<<r<<" "<<c<<endl;
+                c=Cols+j;
+                //cout<<r<<" "<<c<<endl;
+              }
+              else if(j>=Cols)
+              {
+                
+              //  cout<<"j>=Cols"<<endl;
+                //cout<<r<<" "<<c<<endl;
+                c=j%Cols;
+                //cout<<r<<" "<<c<<endl;
+              }
+              }
+                    neighbors += Board[r][c];
             }
+            //cout<<endl;
         }
         return neighbors;
     }
@@ -123,13 +160,7 @@ public:
     }
     void GliderGun()
     {
-      for(int i=0;i<Rows;i++)
-      {
-        for(int j=0;j<Cols;j++)
-        {
-          Board[i][j]=0;
-        }
-      }
+      ResetBoardArray(Board);
       SetCell(1,25,1);
       SetCell(2,25,1);    //right glider gun
       SetCell(6,25,1);
@@ -179,6 +210,7 @@ public:
         while (g < generations&&stable!=2){
             for (int i = 0; i < Rows; i++){
                 for (int j = 0; j < Cols; j++){
+                 // cout<<"on spot "<<i<<","<<j<<endl;
                     neighbors = CountNeighbors(i, j);
                     if (Board[i][j] == 1 && (neighbors < 2 || neighbors > 3)){
                         Board2[i][j] = -1;
