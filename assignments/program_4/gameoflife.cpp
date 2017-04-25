@@ -25,17 +25,28 @@ public:
         ifstream fin;
         fin.open(filename);
         fin >> Rows >> Cols;
+        cout<<Rows<<" "<<Cols<<endl;
         InitBoardArray(Board);
         InitBoardArray(Board2);
         for (int i = 0; i < Rows; i++){
+          cout<<"i is "<<i<<endl;
             for (int j = 0; j < Cols; j++){
+
                 fin.get(ch);
-                if (ch == 10){
+
+               if (ch == 10)
+               {
+                    cout<<"j is "<<j<<endl;
                     continue;
                 }
-                Board[i][j] = int(ch) - 48;
+                cout<<"j is "<<j<<endl;
+                int k=int(ch)-48;
+                cout<<k<<" j is "<<j<<" ";
+                Board[i][j] = k;
             }
+            cout<<endl;
         }
+        PrintBoard();
     }
     
     GameOfLife(int r, int c){
@@ -66,9 +77,9 @@ public:
         for (int i = 0; i < Rows; i++){
             for (int j = 0; j < Cols; j++){
                 if (Board[i][j] == 1)
-                    cout << char('X');
+                    cout << char('X')<<" ";
                 else
-                    cout << " ";
+                    cout << "_ ";
             }
             cout << endl;
         }
@@ -160,46 +171,50 @@ public:
     }
     void GliderGun()
     {
-      ResetBoardArray(Board);
-      SetCell(1,25,1);
-      SetCell(2,25,1);    //right glider gun
-      SetCell(6,25,1);
-      SetCell(7,25,1);
-      SetCell(2,23,1);
-      SetCell(6,23,1);
-      SetCell(3,22,1);
-      SetCell(3,21,1);
-      SetCell(4,22,1);
-      SetCell(4,21,1);
-      SetCell(5,22,1);
-      SetCell(5,21,1);
+      if(Rows>10&&Cols>37)
+      {
+        ResetBoardArray(Board);
+        SetCell(1,25,1);
+        SetCell(2,25,1);    //right glider gun
+        SetCell(6,25,1);
+        SetCell(7,25,1);
+        SetCell(2,23,1);
+        SetCell(6,23,1);
+        SetCell(3,22,1);
+        SetCell(3,21,1);
+        SetCell(4,22,1);
+        SetCell(4,21,1);
+        SetCell(5,22,1);
+        SetCell(5,21,1);
       
-      SetCell(6,18,1);
-      SetCell(6,17,1);    //left glider Gun
-      SetCell(5,17,1);
-      SetCell(7,17,1);
-      SetCell(4,16,1);
-      SetCell(8,16,1);
-      SetCell(6,15,1);
-      SetCell(3,14,1);
-      SetCell(3,13,1);
-      SetCell(4,12,1);
-      SetCell(5,11,1);
-      SetCell(6,11,1);
-      SetCell(7,11,1);
-      SetCell(8,12,1);
-      SetCell(9,13,1);
-      SetCell(9,14,1);
+        SetCell(6,18,1);
+        SetCell(6,17,1);    //left glider Gun
+        SetCell(5,17,1);
+        SetCell(7,17,1);
+        SetCell(4,16,1);
+        SetCell(8,16,1);
+        SetCell(6,15,1);
+        SetCell(3,14,1);
+        SetCell(3,13,1);
+        SetCell(4,12,1);
+        SetCell(5,11,1);
+        SetCell(6,11,1);
+        SetCell(7,11,1);
+        SetCell(8,12,1);
+        SetCell(9,13,1);
+        SetCell(9,14,1);
       
-      SetCell(5,1,1);
-      SetCell(5,2,1);   //left box
-      SetCell(6,1,1);
-      SetCell(6,2,1);
+        SetCell(5,1,1);
+        SetCell(5,2,1);   //left box
+        SetCell(6,1,1);
+        SetCell(6,2,1);
       
-      SetCell(3,35,1);
-      SetCell(3,36,1);  //right box
-      SetCell(4,35,1);
-      SetCell(4,36,1);
+        SetCell(3,35,1);
+        SetCell(3,36,1);  //right box
+        SetCell(4,35,1);
+        SetCell(4,36,1);
+      }
+      return;
     }
     void Run(int generations=99999){
         int neighbors = 0;
@@ -211,6 +226,13 @@ public:
             for (int i = 0; i < Rows; i++){
                 for (int j = 0; j < Cols; j++){
                  // cout<<"on spot "<<i<<","<<j<<endl;
+                 if(((i==0&&j==0)||(i==Rows-1&&j==0)||(i==Rows-1&&j==Cols-1)||(i==0&&j==Cols-1))&&Board[i][j]==1)
+                 {
+                   Board2[i][j]=-1;
+                   check = false;
+                 }
+                 else
+                 {
                     neighbors = CountNeighbors(i, j);
                     if (Board[i][j] == 1 && (neighbors < 2 || neighbors > 3)){
                         Board2[i][j] = -1;
@@ -220,6 +242,7 @@ public:
                         Board2[i][j] = 1;
                         check=false;
                     }
+                 }
                 }
             }
             if(check==true)
@@ -239,21 +262,10 @@ public:
 };
 
 int main(){
-    GameOfLife G(26, 40);
-
-    //GameOfLife G("data2.txt");
-
-     //G.RandomPopulate(60);
-    // G.SetCell(0, 5, 1);
+   GameOfLife G(26, 40);
     G.GliderGun();
-    // G.SetCell(0, 6, 1);
-    // G.SetCell(0, 7, 1);
-    // G.SetCell(1, 5, 1);
-    // G.SetCell(1, 6, 1);
-    // G.SetCell(1, 7, 1);
-    // G.SetCell(2, 5, 1);
-    // G.SetCell(2, 6, 1);
-    // G.SetCell(2, 7, 1);
     G.Run(1000);
+   // GameOfLife B("gen_one.txt");
+   // B.Run(100);
     return 0;
 }
