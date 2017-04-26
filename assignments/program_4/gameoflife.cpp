@@ -72,9 +72,9 @@ public:
         for (int i = 0; i < Rows; i++){
             for (int j = 0; j < Cols; j++){
                 if (Board[i][j] == 1)
-                    cout << char('X')<<" ";
+                    cout << char('X');
                 else
-                    cout << "_ ";
+                    cout << " ";
             }
             cout << endl;
         }
@@ -257,10 +257,10 @@ public:
 };
 
 int main(){
-   //GameOfLife G(26, 40);
-    //G.GliderGun();
-    //G.Run(1000);
-   GameOfLife B("gen_one.txt");
-   B.Run(100);
+  //GameOfLife G(26, 40);
+  //G.GliderGun();
+  //G.Run(1000);
+    GameOfLife B("gen_one.txt");
+    B.Run(100);
     return 0;
 }
