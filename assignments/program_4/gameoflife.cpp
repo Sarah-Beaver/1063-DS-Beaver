@@ -25,24 +25,19 @@ public:
         ifstream fin;
         fin.open(filename);
         fin >> Rows >> Cols;
-        cout<<Rows<<" "<<Cols<<endl;
         InitBoardArray(Board);
         InitBoardArray(Board2);
         for (int i = 0; i < Rows; i++){
-          cout<<"i is "<<i<<endl;
+          fin.get(ch);
             for (int j = 0; j < Cols; j++){
 
-                fin.get(ch);
-
+               fin.get(ch);
                if (ch == 10)
                {
                     cout<<"j is "<<j<<endl;
                     continue;
-                }
-                cout<<"j is "<<j<<endl;
-                int k=int(ch)-48;
-                cout<<k<<" j is "<<j<<" ";
-                Board[i][j] = k;
+               }
+                Board[i][j] = int(ch)-48;
             }
             cout<<endl;
         }
@@ -262,10 +257,10 @@ public:
 };
 
 int main(){
-   GameOfLife G(26, 40);
-    G.GliderGun();
-    G.Run(1000);
-   // GameOfLife B("gen_one.txt");
-   // B.Run(100);
+   //GameOfLife G(26, 40);
+    //G.GliderGun();
+    //G.Run(1000);
+   GameOfLife B("gen_one.txt");
+   B.Run(100);
     return 0;
 }
