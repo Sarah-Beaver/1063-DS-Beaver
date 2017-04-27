@@ -1,3 +1,12 @@
+/**
+* @ProgramName: Game of Life
+* @Author: Sarah Beaver 
+* @Description: 
+*     The Game Of Life Based of of Jon Conway's Game of life
+* @Course: 1063 Data Structures
+* @Semester: Spring 2017
+* @Date: April 26 2017
+*/
 #include <iostream>
 #include <string>
 #include <fstream>
