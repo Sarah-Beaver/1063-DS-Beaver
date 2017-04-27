@@ -266,10 +266,23 @@ public:
 };
 
 int main(){
-  //GameOfLife G(26, 40);
-  //G.GliderGun();
-  //G.Run(1000);
+    int x=0;
     GameOfLife B("gen_one.txt");
-    B.Run(100);
+    GameOfLife C(26,40);
+    C.GliderGun();
+    while(x!=3)
+    {
+      cout<<"Press 1 to run gen_one.txt 2 for glider gun or 3 to quit."<<endl;
+      cin>>x;
+      if(x==1)
+      {
+        B.Run(100);
+      }
+      else if(x==2)
+      {
+        C.Run(100);
+      }
+    }
+    cout<<"Good Bye."<<endl;
     return 0;
 }
